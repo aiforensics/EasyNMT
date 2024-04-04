@@ -36,7 +36,10 @@ class OpusMT:
             return tokenizer, model
 
     def translate_sentences(self, sentences: List[str], source_lang: str, target_lang: str, device: str, beam_size: int = 5, **kwargs):
-        model_name = 'Helsinki-NLP/opus-mt-{}-{}'.format(source_lang, target_lang)
+        if source_lang == "en" and target_lang == "pl":
+            model_name = 'gsarti/opus-mt-tc-en-pl'
+        else:
+            model_name = 'Helsinki-NLP/opus-mt-{}-{}'.format(source_lang, target_lang)
         tokenizer, model = self.load_model(model_name)
         model.to(device)
 
